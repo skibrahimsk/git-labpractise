@@ -1,3 +1,0 @@
-hi sk
-what are you doing git log --onelinegit log --onelinegit log --oneline
-how are you
