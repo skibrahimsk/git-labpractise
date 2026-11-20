@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
     	            echo "showing list in repo"
-			sh ls
+			sh 'ls'
 
 		}
 		}
