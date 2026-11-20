@@ -8,4 +8,6 @@ pipeline {
 			sh ls
 
 		}
+		}
+		}
 }
