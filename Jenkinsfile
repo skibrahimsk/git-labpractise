@@ -1,36 +1,35 @@
-pipeline{
- agent any
-
- stages{
-   
-   stage('build'){
-    
-    steps{
-	echo 'building'
-
-	sh 'ls'
+pipeline {
+    agent any
+    environment {
+        APP_NAME = 'my-app'
     }
-   
-   }
-
-   stage('test')
-   {
-     steps{
-	echo "testing"
-	sh 'cat file2.txt'
-
-     }
-   }
-
-   stage('Result'){
-     steps{
-
-	echo "Result is successful"
-     }
-   
-   }
-
-
- }
-
+    parameters {
+        string(name: 'USER_NAME', defaultValue: 'DevOps', description: 'Who are you?')
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building ${APP_NAME}"
+                echo "Hello ${params.USER_NAME}"
+            }
+        }
+        stage('Tests') {
+            parallel {
+                stage('Unit') {
+                    steps { echo 'Unit tests' }
+                }
+                stage('Integration') {
+                    steps { echo 'Integration tests' }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps { echo 'Deploying...' }
+        }
+    }
+    post {
+        success { echo 'Pipeline passed' }
+        failure { echo 'Pipeline failed' }
+        always  { echo 'Cleaning up' }
+    }
 }
