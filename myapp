@@ -1,0 +1,38 @@
+
+pipeline
+{
+	agent any
+
+	stages {
+
+		stage('Build')
+		{
+			steps
+			{
+			  sh 'echo "hello sk " >> hi.txt
+
+			}
+		}
+
+		stage('Test')
+		{
+			steps
+			{
+			sh 'cat sk.txt'
+				
+			}
+		}
+
+	      }
+
+	post {
+		always
+		{
+		 archiveArtifacts: 'sk.txt  
+		}
+
+
+	}
+
+
+}
